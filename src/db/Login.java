@@ -6,7 +6,15 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Login {
-	String username,password;
+	String username,password,prepassword;
+
+	public String getPrepassword() {
+		return prepassword;
+	}
+
+	public void setPrepassword(String prepassword) {
+		this.prepassword = prepassword;
+	}
 
 	public String getUsername() {
 		return username;
@@ -26,7 +34,7 @@ public class Login {
 
 	@Override
 	public String toString() {
-		return "Login [username=" + username + ", password=" + password + "]";
+		return "Login [username=" + username + ", password=" + password + ", prepassword=" + prepassword + "]";
 	}
 	
 	public String login() {
@@ -43,6 +51,26 @@ public class Login {
 			connection.close();
 			statement.close();
 			resultSet.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "faild";
+	}
+	
+	public String reister() {
+		
+		try {
+			Connection connection=DBConn.getConnection();
+			Statement statement= connection.createStatement();
+			int resultSet=statement.executeUpdate("insert into user_login(userid,password,user_type) values('"+username+"','"+password+"',0)");
+			if (resultSet>0) {
+				return "success";
+			}
+			connection.close();
+			statement.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
