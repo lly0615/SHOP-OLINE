@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:include page="head.jsp"></jsp:include>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>用户登录</title>
+<title>注册SHOP ID</title>
 <style type="text/css">			
 			
 			#login_content{
@@ -61,25 +62,26 @@
 			
 		</style>
 </head>
-<jsp:include page="head.jsp"></jsp:include>
 <body>
 <div id="login_content">
 <div id="one">
 			
-			<h1>登录到SHOP</h1>
+			<h1>注册 SHOP ID</h1>
 			
 			<hr>
 			
-			<form id="fompost" action="../do/logincheck.jsp" method="post">
+			<form id="fompost" action="../do/register.jsp" method="post">
 			
 				<input id="emailaccount" name="username" type="text" placeholder="Shop ID*" />
 
 			
 				<input id="password" name="password" type="password" placeholder="密码*" />
 				
+				<input id="prepassword" name="prepassword" type="password" placeholder="再次输入密码*" />
 				
-				<input id="subbtn" type="submit" value="登录"/>
-				<a href="register.jsp">没有Shop ID？现在注册></a>
+				
+				<input id="subbtn" type="submit" value="确认注册"/>
+				<a href="#">我有Shop ID 现在登录></a>
 			</form>
 			
 		</div>
