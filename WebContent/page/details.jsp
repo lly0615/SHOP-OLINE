@@ -1,9 +1,12 @@
+<%@page import="org.json.JSONArray"%>
 <%@page import="org.json.JSONObject"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="head.jsp"></jsp:include>
 <jsp:useBean id="Details" scope="page" class="base.Details"/>
 <jsp:setProperty name="Details" property="*"/>
+<jsp:useBean id="Shops" scope="page" class="base.Shops"/>
+<jsp:setProperty name="Shops" property="*"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -110,20 +113,33 @@
 					<div class="available">
 						<h4>商品选项 :</h4>
 						<div class="btn_form">
-						<form>
+						<form id="shopform" method="post" action="index.jsp">
+						<input style="display: none;" name="userid" value="<%=session.getAttribute("username")%>">
+						<input style="display: none;" name="name" value="<%=jsonObject.getString("name") %>">
+						<input style="display: none;" name="skuno" value="<%=jsonObject.getString("spu_no") %>">
 						<ul>
 							<li>数量:
-								<select>
-									<option>1</option>
-									<option>2</option>
-									<option>3</option>
-									<option>4</option>
-									<option>5</option>
+								<select name="count">
+									<option value="1">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+									<option value="5">5</option>
 								</select>
 							</li>
 						</ul>
-								<input type="submit" value="加入购物车" title="" />
-								<input type="submit" value="立即购买>>" title="" />
+								<%
+									if(session.getAttribute("username")!=null){%>
+										<input type="button" value="加入购物车" title=""  onclick="addCart()"/>
+										<input type="button" value="立即购买>>" title="" onclick="payCount()"/>
+									<%}else{
+										%>
+										<input type="button" value="加入购物车" title=""  onclick="login()"/>
+										<input type="button" value="立即购买>>" title="" onclick="login()"/>
+										<%
+									}
+								%>
+								
 						</form>
 						</div>
 						<%
@@ -199,19 +215,15 @@
 						<h4>热销商品</h4>
 						<div class="single-nav">
 			                <ul>
-			                   <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">The standard chunk of Lorem Ipsum</a></li>
-			                    <li><a href="#">The standard chunk of Lorem Ipsum</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">The standard chunk of Lorem Ipsum</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">The standard chunk of Lorem Ipsum</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>
-			                    <li><a href="#">Always free from repetition</a></li>			                    
+			                <%
+			                	JSONArray sellArry=Shops.selectIndexShops();
+			                	for(int i=0;i<sellArry.length();i++){
+			                		JSONObject sellObject=sellArry.getJSONObject(i);
+			                		%>
+			                		<li><a href="details.jsp?skuno=<%=sellObject.getString("spu_no") %>"><%=sellObject.getString("name") %></a></li>
+			                		<%
+			                	}
+			                %>			                    
 			                </ul>
 			              </div>
 						  <div class="banner-wrap bottom_banner color_link">
@@ -239,6 +251,23 @@
 	</div>
 </div>
 </div>
+<script type="text/javascript">
+	function addCart() {
+		document.getElementById('shopform').action="../do/addcart.jsp";
+		document.getElementById('shopform').submit();
+	}
+	
+	function payCount() {
+		document.getElementById('shopform').action="shops.jsp";
+		document.getElementById('shopform').submit();
+	}
+	
+	function login() {
+		document.getElementById('shopform').action="login.jsp";
+		document.getElementById('shopform').submit();
+	}
+	
+</script>
 <jsp:include page="footer_bg.jsp"></jsp:include>	
 </body>
 </html>

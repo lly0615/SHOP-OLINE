@@ -993,7 +993,7 @@ p.para{
 	margin-top: 6%;
 	float: left;
 }
-.btn_form form input[type="submit"]{
+.btn_form form input[type="button"]{
 	margin-top:6%;
 	font-family: 'Source Sans Pro', sans-serif;
 	cursor:pointer;
@@ -1010,7 +1010,7 @@ p.para{
 	-o-transition: all 0.3s ease-in-out;
 	transition: all 0.3s ease-in-out;
 }
-.btn_form form input[type="submit"]:hover{
+.btn_form form input[type="button"]:hover{
 	background: #45A8F0;
 }
 .span_right{
@@ -1186,7 +1186,7 @@ p.para{
 	display: block;
 }
 .tabs input:hover + label {
-	background: #3DC4B7;
+	background: #46A8EE;
 	color:#ffffff;
 	font-weight: normal;
 }
@@ -1289,7 +1289,25 @@ p.para{
 	color: #555555;
 	font-family: 'Source Sans Pro', sans-serif;
 }
+
+.content ul li img{
+	width: 356px;
+	height: 200pxx;
+}
 /* end tabs */
+
+
+.catTable button{
+	color:#ffffff;
+	background-color: #535353;
+}
+
+.carttr{
+	border:none;
+	height: 30px;
+}
+
+
 /***** Media Quries *****/
 @media only screen and (max-width: 1366px) {
 	.wrap{

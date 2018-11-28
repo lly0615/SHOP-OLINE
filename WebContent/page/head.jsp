@@ -63,7 +63,7 @@
 		</div>
 		<div class="h_icon">
 		<ul class="icon1 sub-icon1">
-			<li><a class="active-icon c1" href="#"><i></i></a>
+			<li><a class="active-icon c1" href="cart.jsp"><i></i></a>
 				<ul class="sub-icon1 list">
 				<%
 					if(session.getAttribute("username")!=null){
