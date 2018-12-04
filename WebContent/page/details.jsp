@@ -145,7 +145,7 @@
 						<%
 					if(session.getAttribute("username")!=null){
 					%>
-						<span class="span_right"><a href="login.jsp">查看购物车 </a></span>
+						<span class="span_right"><a href="cart.jsp">查看购物车 </a></span>
 					<%
 					}else{
 						%>

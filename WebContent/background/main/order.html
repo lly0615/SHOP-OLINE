@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  <title>分类管理</title>
+  <link rel="stylesheet" href="../css/layui.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+
+<body>
+  <div class="order-breadcrumb">
+    <span class="layui-breadcrumb">
+      <a href="../index.html">首页</a>
+      <a><cite>订单管理</cite></a>
+    </span>
+  </div>
+  <div class="order-main">
+
+    <table class="layui-hide" id="dataTable" lay-size="lg" lay-filter="dataTable"></table>
+  </div>
+
+  <script type="text/html" id="openEditForm">
+    <div id="openEditFormView">
+    <form class="layui-form" action="">
+      <div class="layui-form-item">
+          <label class="layui-form-label">商品名</label>
+          <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入商品名" autocomplete="off" value="{{ d.name }}" class="layui-input"/>
+           </div>
+      </div>
+    </form>
+  </div>
+  </script>
+
+  <script type="text/html" id="barDemo">
+    <!-- <a class="layui-btn layui-btn-primary " lay-event="detail">查看</a> -->
+    <a class="layui-btn " lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
+  </script>
+  <script type="text/html" id="topic_img_show">
+    <!-- 这里的 checked 的状态只是演示 -->
+    <img src="{{d.topic_img_url}}" lay-event="show">
+  </script>
+
+
+  <script src="../js/layui.js" charset="utf-8"></script>
+  <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+  <script>
+  
+  </script>
+
+
+</body>
+</html>

@@ -72,12 +72,12 @@
 			
 			<form id="fompost" action="../do/register.jsp" method="post">
 			
-				<input id="emailaccount" name="username" type="text" placeholder="Shop ID*" />
+				<input required="required" id="emailaccount" name="username" type="text" placeholder="Shop ID*" />
 
 			
-				<input id="password" name="password" type="password" placeholder="密码*" />
+				<input required="required" id="password" name="password" type="password" placeholder="密码*" />
 				
-				<input id="prepassword" name="prepassword" type="password" placeholder="再次输入密码*" />
+				<input required="required" id="prepassword" name="prepassword" type="password" placeholder="再次输入密码*" />
 				
 				
 				<input id="subbtn" type="submit" value="确认注册"/>

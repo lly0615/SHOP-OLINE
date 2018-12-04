@@ -3,9 +3,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	//if(session.getAttribute("username")==null){
-		//out.print("<script>alert('请先登录！'); document.location.href='../page/login.jsp';</script>");
-	//}
+	String username="";
+	if(session.getAttribute("username")==null||session.getAttribute("username").equals("")){
+		out.print("<script>alert('请先登录！'); document.location.href='../page/login.jsp';</script>");
+	}else{
+		username=session.getAttribute("username").toString();
+	}
 %>
 <jsp:include page="head.jsp"></jsp:include>
 <jsp:useBean id="Cart" scope="page" class="base.SelectCart"/>
@@ -49,15 +52,16 @@
 			        <div class="content">
 				        <div class="content-1">
 				        <%
-				        	JSONArray jsArray=Cart.getCart(session.getAttribute("username").toString());
+				        	JSONArray jsArray=Cart.getCart(username);
 				        %>
 				        	<table class="catTable" style="width: 100%;margin-top: 6px">
 				        		<tr class="carttr"><td>商品名称</td><td>数量</td><td>价格</td><td>操作</td></tr>
 				        		<%
 				        		for(int i=0;i<jsArray.length();i++){
 				        			JSONObject jsObject=jsArray.getJSONObject(i);
+				        			int price=Cart.cacuPrice(jsObject.getString("sku_no"),jsObject.getInt("count"));
 				        			%>
-				        			<tr class="carttr"><td><%=jsObject.getString("name") %></td><td><%=jsObject.getString("count") %></td><td><%=Cart.cacuPrice(jsObject.getString("sku_no"),jsObject.getInt("count")) %></td><td><button>结算</button></td></tr>
+				        			<tr class="carttr"><td><%=jsObject.getString("name") %></td><td><%=jsObject.getString("count") %></td><td><%="￥"+price %></td><td><button onclick="javascript:post('payfor.jsp',{orderid:'<%=jsObject.getString("orderid") %>',name:'<%=price %>'})">结算</button></td></tr>
 				        			<%
 				        		}
 				        		%>
@@ -66,7 +70,7 @@
 						</div>
 				        <div class="content-2">
 							<%
-				        	JSONArray jsArray1=Cart.getPaid(session.getAttribute("username").toString());
+				        	JSONArray jsArray1=Cart.getPaid(username);
 				        %>
 				        	<table class="catTable" style="width: 100%;margin-top: 6px">
 				        		<tr class="carttr"><td>商品名称</td><td>数量</td><td>价格</td><td>操作</td></tr>
@@ -74,7 +78,7 @@
 				        		for(int i=0;i<jsArray1.length();i++){
 				        			JSONObject jsObject=jsArray1.getJSONObject(i);
 				        			%>
-				        			<tr class="carttr"><td><%=jsObject.getString("name") %></td><td><%=jsObject.getString("count") %></td><td><%=Cart.cacuPrice(jsObject.getString("sku_no"),jsObject.getInt("count")) %></td><td><button>确认收货</button></td></tr>
+				        			<tr class="carttr"><td><%=jsObject.getString("name") %></td><td><%=jsObject.getString("count") %></td><td><%=Cart.cacuPrice(jsObject.getString("sku_no"),jsObject.getInt("count")) %></td><td><button onclick="javascript:post('../do/compld.jsp',{orderid:'<%=jsObject.getString("orderid") %>'})">确认收货</button></td></tr>
 				        			<%
 				        		}
 				        		%>
@@ -82,7 +86,21 @@
 				        	</table>
 						</div>
 				        <div class="content-3">
-				        	<img alt="" src="images/xuzhi.jpg">
+				        	<%
+				        	JSONArray jsArray2=Cart.getCompld(username);
+				        	%>
+				        	<table class="catTable" style="width: 100%;margin-top: 6px">
+				        		<tr class="carttr"><td>商品名称</td><td>数量</td><td>价格</td><td>操作</td></tr>
+				        		<%
+				        		for(int i=0;i<jsArray2.length();i++){
+				        			JSONObject jsObject=jsArray2.getJSONObject(i);
+				        			%>
+				        			<tr class="carttr"><td><%=jsObject.getString("name") %></td><td><%=jsObject.getString("count") %></td><td><%=Cart.cacuPrice(jsObject.getString("sku_no"),jsObject.getInt("count")) %></td><td><button onclick="javascript:post('../do/delectorder.jsp',{orderid:'<%=jsObject.getString("orderid") %>'})">删除订单</button></td></tr>
+				        			<%
+				        		}
+				        		%>
+				        		
+				        	</table>
 						</div>
 						
 						
@@ -93,7 +111,7 @@
 			   	<!-- start sidebar -->
 			 <div class="left_sidebar">
 					<div class="sellers">
-						<h4><%=session.getAttribute("username") %></h4>
+						<h4><%=username %></h4>
 						<div class="single-nav">
 			                <ul>
 			                   <li><a href="#">收货地址管理</a></li>
@@ -109,13 +127,10 @@
 								<h5><span>免费送货</span><br> 超过￥99</h5><p>可以提供送货上门服务。</p></a>
 						 </div>
 						 <div class="brands">
-							 <h1>Brands</h1>
+							 <h1>街道</h1>
 					  		 <div class="field">
 				                 <select class="select1">
-				                   <option>Please Select</option>
-										<option>Lorem ipsum dolor sit amet</option>
-										<option>Lorem ipsum dolor sit amet</option>
-										<option>Lorem ipsum dolor sit amet</option>
+				                   <option>请选择</option>
 				                  </select>
 				            </div>
 			    		</div>
@@ -130,5 +145,40 @@
 </div>
 <jsp:include page="footer_bg.jsp"></jsp:include>	
 </body>
+
+<%
+	if(request.getParameter("backmsg")!=null||!request.equals("")){%>
+		<script type="text/javascript">
+			var tab=document.getElementById("tab-2");
+		    tab.prop("checked",true);
+		</script>
+		<%
+	}
+%>
+
+<script type="text/javascript">
+    function post(url, params) {
+    console.log(params)
+    var temp = document.createElement("form"); //创建form表单
+    temp.action = url;
+    temp.method = "post";
+    temp.style.display = "none";//表单样式为隐藏
+    for (var item in params) {//初始化表单内部的控件
+       //根据实际情况创建不同的标签元素
+        var opt =document.createElement("input");  //添加input标签
+        opt.type="text";   //类型为text
+        opt.id = item;      //设置id属性
+        opt.name = item;    //设置name属性
+        opt.value = params[item];   //设置value属性
+        temp.appendChild(opt);
+    }
+    
+    document.body.appendChild(temp);
+    temp.submit();
+    return temp;
+}
+</script>
 </html>
 <jsp:include page="footer.jsp"></jsp:include>
+
+

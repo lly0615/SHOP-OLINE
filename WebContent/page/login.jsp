@@ -72,10 +72,10 @@
 			
 			<form id="fompost" action="../do/logincheck.jsp" method="post">
 			
-				<input id="emailaccount" name="username" type="text" placeholder="Shop ID*" />
+				<input required="required" id="emailaccount" name="username" type="text" placeholder="Shop ID*" />
 
 			
-				<input id="password" name="password" type="password" placeholder="密码*" />
+				<input required="required" id="password" name="password" type="password" placeholder="密码*" />
 				
 				
 				<input id="subbtn" type="submit" value="登录"/>
