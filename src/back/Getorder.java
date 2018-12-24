@@ -36,17 +36,20 @@ public class Getorder extends HttpServlet {
 		}
         JSONObject jsonObject=new JSONObject();
         String sessionid=request.getParameter("sessionid");
+        System.out.println("session里的"+sessionid);
      
         PrintWriter printWriter=response.getWriter();
         if (sessionid.equals(sessiont)) {
 			JSONArray jsonArray=new GetService().getInfo();
 			printWriter.println(jsonArray);
+			printWriter.close();
 		}else {
 			try {
 				jsonObject.put("code", 1);
 				jsonObject.put("msg", "请重新登陆!");
 				jsonObject.put("status", 202);
 				printWriter.println(jsonObject);
+				printWriter.close();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -18,25 +18,25 @@
 				<div class="da-slide">
 					<h2>大屏幕上见。</h2>
 					<p>如果你已加入 iPhone 年年焕新计划，请先查询你的升级换购资格，然后预约前往 Apple Store 零售店换购新 iPhone。</p>
-					<a href="details.html" class="da-link">购买</a>
+					<a href="#" class="da-link">购买</a>
 					<div class="da-img"><img src="images/iphone-xs-select-2018-3.png" alt="image01" /></div>
 				</div>
 				<div class="da-slide">
 					<h2>身薄力不薄。</h2>
 					<p>在新款 MacBook 上，我们新配备了第七代 Intel Core m3、i5 和 i7 处理器，使处理性能提升最高可达 20%1，此外还采用了速度提升最高可达 50% 的固态硬盘存储。</p>
-					<a href="details.html" class="da-link">购买</a>
+					<a href="#" class="da-link">购买</a>
 					<div class="da-img"><img src="images/macpro.png" alt="image01" /></div>
 				</div>
 				<div class="da-slide">
 					<h2>全方面强大。</h2>
 					<p>全新，全面屏，全方位强大。一切彻底重新设计，并融入我们的各种先进科技。这将启发你重新思考 iPad 能做到什么。</p>
-					<a href="details.html" class="da-link">购买</a>
+					<a href="#" class="da-link">购买</a>
 					<div class="da-img"><img src="images/ipad.png" alt="image01" /></div>
 				</div>
 				<div class="da-slide">
 					<h2>运动更多，伙伴更多。</h2>
 					<p>Apple Watch Nike+ 搭配 Nike Run Club app 一起使用时，它就是你跑步的好搭档。</p>
-					<a href="details.html" class="da-link">购买</a>
+					<a href="#" class="da-link">购买</a>
 					<div class="da-img"><img src="images/watch.png" alt="image01" /></div>
 				</div>
 				<nav class="da-arrows">

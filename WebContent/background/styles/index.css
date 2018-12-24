@@ -1,0 +1,15 @@
+iframe[name=content_main]{
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+.layui-nav-tree i.layui-icon{
+    margin-right: 10px;
+    font-size: 16px;
+}
+.layui-header .layui-logo{
+    color: #2196f3;
+    font-weight: 700;
+}
+.layui-body{
+    overflow: hidden;
+}

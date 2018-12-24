@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>报价管理</title>
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+    <div class="order-breadcrumb">
+        <span class="layui-breadcrumb">
+            <a href="./index.html">首页</a>
+            <a><cite>报价管理</cite></a>
+        </span>
+    </div>
+    <div class="order-main">
+        <button class="layui-btn layui-btn-normal" id="onAddproduct" type="button">添加报价</button>
+        <table class="layui-hide" id="dataTable" lay-size="lg" lay-filter="dataTable"></table>
+        <!-- <table class="layui-table" id="dataTable" lay-filter="dataTable">
+      <thead>
+        <tr>
+          <th lay-data="{field: 'id', align: 'center', width: 120}">类别ID</th>
+          <th lay-data=" {field: 'name', align: 'center', width: 150 }">类别名</th>
+          <th lay-data="{ field: 'img_url', align: 'center', width: 500, toolbar: '#topic_img_show' }">图片地址</th>
+          <th lay-data=" { fixed: 'right', align: 'center', toolbar: '#barDemo' }">操作</th>
+        </tr>
+      </thead>
+    </table> -->
+
+    </div>
+
+
+    <script type="text/html" id="openEditForm">
+    <div id="openEditFormView">
+    <form class="layui-form layui-form-pane" action="" enctype="multipart/form-data">
+      <div class="layui-form-item">
+        <input type="hidden" name="id" required autocomplete="off" value="{{ d.id }}" class="layui-input"/>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">报价名</label>
+          <div class="layui-input-block">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入报价名" autocomplete="on" value="{{ d.name }}" class="layui-input"/>
+           </div>
+      </div>
+      
+      <!-- <div class="layui-form-item">
+          <label class="layui-form-label">描述</label>
+          <div class="layui-input-block">
+             <textarea type="text" name="description" class="layui-input" required  lay-verify="required" placeholder="请输入描述">{{ d.description }}</textarea>
+          </div>
+      </div> -->
+      
+      <div class="layui-form-item">
+        <label class="layui-form-label">价格</label>
+        <div class="layui-input-block">
+           <input type="text" name="price" value="{{ d.price }}"  class="layui-input" required  lay-verify="required" placeholder="请输入价格">
+        </div>
+    </div>
+
+      {{# if(!d.id){ }}
+      <div class="layui-form-item">
+          <label class="layui-form-label">图片</label>
+          <div class="layui-input-block">
+            <label class="layui-btn layui-btn-normal">
+              {{# if(!d.img_url){ }}
+              <span class="upImg">上传</span>
+              {{# } else{ }}
+              <span class="upImg">{{d.img_url}}</span>
+              {{# } }}
+            <input type="file" id="myFile_id" style="opacity:0;width:2px" name="myFile" class="layui-btn" required lay-verify="required" placeholder="选择文件" value="上传图片"/>
+          </label>
+          </div>
+      </div>
+      {{# }else{ }}
+      <div class="layui-form-item">
+          <label class="layui-form-label">图片</label>
+          <div class="layui-input-block">
+            <p>如需修改图片请点击图片进行修改</p>
+          </div>
+      </div>
+      {{# } }}
+
+      <div class="layui-form-item">
+          {{# if(d.id){ }}
+        <button class="layui-btn layui-btn-fluid  layui-btn-warm" lay-submit lay-filter="formAdd">修改类别</button>
+        {{# }else{ }}
+        <button class="layui-btn layui-btn-fluid  layui-btn-warm" lay-submit lay-filter="formAdd">增加类别</button>
+        {{# } }}
+      </div>
+      
+    </form>
+  </div>
+  </script>
+
+    <script type="text/html" id="EditImg_templ">
+    <div id="EditImgView">
+    <form class="layui-form layui-form-pane" action="" enctype="multipart/form-data">
+      <div class="layui-form-item">
+        <input type="hidden" name="id" required autocomplete="off" value="{{ d.id }}" class="layui-input"/>
+      </div>
+      <div class="layui-form-item">
+          <label class="layui-form-label">图片</label>
+          <div class="layui-input-block">
+            <label class="layui-btn layui-btn-normal"><span class="upImg">上传</span>
+            <input type="file" id="myFile_id" style="opacity:0;width:2px" name="myFile" class="layui-btn" required lay-verify="required" placeholder="选择文件" value="上传图片"/>
+          </label>
+          </div>
+      </div>
+
+      <div class="layui-form-item">
+          <button class="layui-btn layui-btn-fluid  layui-btn-warm" lay-submit lay-filter="formImgEdit">提交图片修改</button>
+      </div>
+      
+    </form>
+  </div>
+  </script>
+
+    <script type="text/html" id="barDemo">
+    <!-- <a class="layui-btn layui-btn-primary " lay-event="detail">查看</a> -->
+    <a class="layui-btn " lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger " lay-event="del">删除</a>
+  </script>
+    <script type="text/html" id="topic_img_show">
+    <!-- 这里的 checked 的状态只是演示 -->
+    <img src="{{d.img_url}}" lay-event="show">
+  </script>
+
+
+    <script src="../layui/layui.js" charset="utf-8"></script>
+    <script src="../scripts/config.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+
+    <script>
+
+        function editData(data) {
+            // 调用接口
+            // 
+            layui.use('laytpl', function () {
+
+                var laytpl = layui.laytpl;
+                var openEditForm_html = openEditForm.innerHTML
+
+                laytpl(openEditForm_html).render(data, function (html) {
+
+                    layer.open({
+                        type: 1,
+                        title: '修改',
+                        maxWidth: "100px",
+                        content: html //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                    });
+
+                });
+
+            });
+
+        }
+
+        function editImg(data) {
+            // 调用接口
+            console.log(data, "---");
+
+            var laytpl = layui.laytpl;
+            var openEditForm_html = EditImg_templ.innerHTML
+            laytpl(openEditForm_html).render(data, function (html) {
+
+                layer.open({
+                    type: 1,
+                    title: "修改图片",
+                    maxWidth: "300px",
+                    content: html //这里content是一个DOM，注意：最好该元素要存放在body最外层，否则可能被其它的相对元素所影响
+                });
+
+            });
+
+        }
+
+        function upTbaleView() {
+            layui.use('table', function () {
+                var table = layui.table;
+                // 获取所有报价
+                config.webApiFun.getbaojia(function (message) {
+
+                    table.render({
+                        elem: "#dataTable"
+                        , height: 650
+                        // , url: '/demo/table/user'
+                        , data: message
+                        , cols: [[
+                            { field: 'id', align: 'center', title: 'ID', width: 120, }
+                            , { field: 'name', align: 'center', title: '名字', width: 150, }
+                            , { field: 'price', align: 'center', title: '价格', width: 300 }
+                            , { field: 'img_url', align: 'center', title: '图片', width: 300, toolbar: "#topic_img_show" }
+                            , { field: '', align: 'center', toolbar: '#barDemo', title: '操作' }
+                            // <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+                        ]]//设置表头
+                    });
+
+                });
+
+            });
+        }
+
+        layui.use(['table', 'element', 'form', 'laytpl'], function () {
+            var table = layui.table;
+            var element = layui.element;
+            var $ = layui.jquery;
+            var laytpl = layui.laytpl;
+            var form = layui.form;
+
+            upTbaleView();
+
+            $("#onAddproduct").click(function (e) {
+
+                console.log(this, e);
+
+                // upTbaleView();
+                editData({
+                    id: 0,
+                    name: "",
+                    img_url: "",
+                    price: 0
+                });
+
+                $("#myFile_id").bind('change', function () {
+                    var file = $(this).val();
+                    //alert(file);
+                    if (file.length > 0) {
+                        console.log($(".upImg"));
+
+                        $(".upImg").text(file);
+                    }
+                });
+                return false;
+            });
+
+            form.on('submit(formImgEdit)', function (data) {
+
+                console.log(data);
+                var index = layer.load(1, {
+                    shade: [0.6, '#fff'] //0.1透明度的白色背景
+                });
+                if (data.field.id > 0) {
+                    console.log(data.form);
+
+                    var form_data = new FormData(data.form);
+
+                    config.webApiFun.editbaojiaimg(form_data, function (data) {
+
+                        console.log(data);
+
+                        if (data.errorno == 0) {
+
+                            layer.msg('图片修改成功');
+
+                            upTbaleView();
+
+                            setTimeout(function () {
+                                layer.closeAll();
+                            }, 800);
+                        } else {
+                            layer.msg('图片修改失败，请稍后再试');
+                        }
+
+                        layer.closeAll("loading");
+                    });
+
+                }
+                return false;
+            });
+            form.on('submit(formAdd)', function (data) {
+                console.log(data.field.id);
+
+                // console.log(data);
+                var index = layer.load(1, {
+                    shade: [0.6, '#fff'] //0.1透明度的白色背景
+                });
+
+                if (data.field.id > 0) {
+
+                    config.webApiFun.editbaojiainfo(data.field, function (data) {
+                        console.log(data);
+
+                        if (data.errorno == 0) {
+
+                            layer.msg('修改成功');
+
+                            upTbaleView();
+                            setTimeout(function () {
+                                layer.closeAll();
+                            }, 800);
+                        } else {
+                            layer.msg('修改失败');
+                        }
+
+                        layer.closeAll("loading");
+                    });
+
+
+                } else {
+                    var form_data = new FormData(data.form);
+
+                    config.webApiFun.addbaojia(form_data, function (data) {
+                        if (data.id) {
+                            // 上传成功
+                            layer.msg('添加成功');
+
+                            upTbaleView();
+
+                            setTimeout(function () {
+                                layer.closeAll();
+                            }, 800);
+                        } else {
+                            layer.msg('添加失败，请等待再提交');
+                        }
+                    });
+                }
+
+                return false;
+
+            });
+
+
+            //监听工具条
+            table.on('tool(dataTable)', function (obj) {
+                // console.log(obj);
+
+                var data = obj.data;
+                switch (obj.event) {
+                    case 'detail':
+                        layer.msg('ID：' + data.id + ' 的查看操作');
+                        break;
+                    case 'del':
+                        layer.confirm('真的删除行么', function (index) {
+                            // TODO 预留给 删除接口
+                            config.webApiFun.deletebaojia(data.id, function (message) {
+                                if (message.errorno === 0) {
+                                    obj.del();
+                                    layer.msg("删除成功");
+                                } else {
+                                    layer.msg("删除失败，错误信息" + message.info);
+                                }
+                                layer.close(index);
+                            });
+                        });
+                        break;
+                    case 'edit':
+                        // TODO 预留给 编辑
+                        // layer.alert('编辑行：<br>' + JSON.stringify(data))
+                        editData(data);
+
+                        break;
+                    case 'show':
+                        layer.open({
+                            type: 1,
+                            title: '大图',
+                            maxWidth: "80%",
+                            content: '<p style="text-align:center;padding:20px;" ><button id="editImg" class="layui-btn layui-btn-fluid  layui-btn-warm">修改图片</button></p><div><img style="margin:20px;border:1px solid #ddd" src="' + data.img_url + '"></div>' //这里content是一个普通的String
+                        });
+
+                        $("button#editImg").click(function () {
+                            editImg(data);
+                            $("#myFile_id").bind('change', function () {
+                                var file = $(this).val();
+                                //alert(file);
+                                if (file.length > 0) {
+                                    console.log($(".upImg"));
+
+                                    $(".upImg").text(file);
+                                }
+                            });
+                            return false;
+                        });
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+
+        });
+    </script>
+
+
+</body>
+
+
+</html>

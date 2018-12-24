@@ -1,0 +1,31 @@
+.order-breadcrumb{
+    margin: 20px;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+.order-main{
+    /* background-color: #000; */
+    /* height: 1800px; */
+    margin: 20px;
+}
+.layui-table-cell{
+    height: auto;
+}
+#openEditFormView{
+    margin: 20px;
+    min-height: 400px;
+    min-width: 360px;
+}
+.layui-input-block p{
+    color: #e91e63;
+    padding: 7px 12px;
+}
+/* #openEditFormView .layui-form-label{
+    width: 60px;
+    padding: 10px 0;
+    
+}
+#openEditFormView .layui-input-block{
+    margin-left: 70px;
+} */

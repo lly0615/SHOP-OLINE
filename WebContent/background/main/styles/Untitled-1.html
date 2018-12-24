@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li>题目1 <span>1</span><span>2</span> 答案展示：<span class="a"></span> </li>
+        <li>题目2 <span>1</span><span>2</span> 答案展示：<span class="a"></span> </li>
+        <li>题目3 <span>1</span><span>2</span> 答案展示：<span class="a"></span> </li>
+        <li>题目4 <span>1</span><span>2</span> 答案展示：<span class="a"></span> </li>
+    </ul>
+    <button id="ok">提交</button>
+    <script>
+        // 取所有li
+        var lis = document.querySelectorAll("li");
+        var ok = document.querySelector("#ok");
+        // 当点击提交
+        ok.onclick = function () {
+
+            // 遍历所有题目的元素
+            for (let index = 0; index < lis.length; index++) {
+
+                //  <span>1</span><span>2</span>
+                // 通过index判断是第几题
+                // 这里假设判断了题目
+                // 这个元素取lis[index] 下面的a
+                var show = lis[index].getElementsByClassName("a")[0];
+                show.innerHTML = "A";
+
+            }
+        }
+        // 设置他的onclick
+
+
+    </script>
+</body>
+
+</html>

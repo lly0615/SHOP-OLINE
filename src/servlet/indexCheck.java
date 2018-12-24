@@ -1,11 +1,17 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+
+import back.GetService;
 
 /**
  * Servlet implementation class indexCheck
@@ -34,8 +40,14 @@ public class indexCheck extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+        response.setContentType("application/json;charset=utf-8");
+        response.setCharacterEncoding("utf-8");
+        
+        PrintWriter printWriter=response.getWriter();
+        JSONArray jsonArray=new GetService().getInfo();
+        printWriter.println(jsonArray);
+		
 	}
 
 }

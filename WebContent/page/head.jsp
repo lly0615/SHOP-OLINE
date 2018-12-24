@@ -101,12 +101,12 @@
 				<li><a href="shops.jsp?brand_id=2">ipad</a></li> |
 				<li><a href="shops.jsp?brand_id=3">iphone</a></li> |
 				<li><a href="shops.jsp?brand_id=4">watch</a></li> |
-				<li><a href="sale.html">sale</a></li> |
-				<li><a href="index.html">mens store</a></li> |
-				<li><a href="shoes.html">shoes</a></li> |
-				<li><a href="sale.html">vintage</a></li> |
-				<li><a href="service.html">services</a></li> |
-				<li><a href="contact.html">support</a></li>
+				<li><a href="#">sale</a></li> |
+				<li><a href="#">mens store</a></li> |
+				<li><a href="#">shoes</a></li> |
+				<li><a href="#">vintage</a></li> |
+				<li><a href="#">services</a></li> |
+				<li><a href="#">support</a></li>
 			</ul>
 		</div>
 		<div class="top-nav">
@@ -118,8 +118,8 @@
 							<li class="nav-item"><a href="shops.jsp?brand_id=2">ipad</a></li>
 							<li class="nav-item"><a href="shops.jsp?brand_id=3">iphone</a></li>
 							<li class="nav-item"><a href="shops.jsp?brand_id=4">watch</a></li>
-							<li class="nav-item"><a href="service.html">Services</a></li>
-							<li class="nav-item"><a href="contact.html">Contact</a></li>
+							<li class="nav-item"><a href="#">Services</a></li>
+							<li class="nav-item"><a href="#">Contact</a></li>
 	                 </ul>
 	           </nav>
 	             <div class="search_box">

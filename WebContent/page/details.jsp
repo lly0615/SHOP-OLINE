@@ -258,7 +258,7 @@
 	}
 	
 	function payCount() {
-		document.getElementById('shopform').action="shops.jsp";
+		document.getElementById('shopform').action="../do/paycount.jsp";
 		document.getElementById('shopform').submit();
 	}
 	

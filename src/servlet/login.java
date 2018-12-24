@@ -24,6 +24,7 @@ public class login extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
         response.setContentType("application/json;charset=utf-8");
         response.setCharacterEncoding("utf-8");
+        System.out.println("’‚ «request"+request.toString());
         JSONObject jsonObject=new JSONObject();
 		String account=request.getParameter("account");
 		String password=request.getParameter("password");
